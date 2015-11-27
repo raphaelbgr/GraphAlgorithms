@@ -8,7 +8,7 @@ public class Node {
 	private boolean visited;
 	private int previsit;
 	private int postvisit;
-	private char name;
+	private String name;
 	private List<Edge> edges;
 	
 	public List<Edge> getEdges() {
@@ -23,21 +23,36 @@ public class Node {
 	public void setVisited(boolean visited) {
 		this.visited = visited;
 	}
-	public char getName() {
+	public String getName() {
 		return name;
 	}
-	public void setName(char name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public Node(char name, Collection<? extends Edge> edges) {
+	public Node(String name, Collection<? extends Edge> edges) {
 		super();
 		this.name = name;
-		this.edges = new ArrayList<Edge>();
 		if (edges != null) {
-			this.edges.addAll(edges);
+			this.edges = new ArrayList<Edge>();
 		}
+		this.edges.addAll(edges);
 	}
+	
+	public Node(String name, Edge edge) {
+		super();
+		this.name = name;
+		if (edges != null) {
+			this.edges = new ArrayList<Edge>();
+		}
+		this.edges.add(edge);
+	}
+	
+	public Node(String name) {
+		super();
+		this.name = name;
+	}
+	
 	public int getPrevisit() {
 		return previsit;
 	}
@@ -50,8 +65,16 @@ public class Node {
 	public void setPostvisit(int postvisit) {
 		this.postvisit = postvisit;
 	}
-	
-//	public Node() {
-//		super();
-//	}
+	public Node getExistingOrCreateNode(Graph graph, String name) {
+		Node node = graph.searchNodeByName(name);
+		if (node != null) {
+			return node;
+		} else return new Node(name);
+	}
+	public void addEdge(Edge edge) {
+		if (edges == null) {
+			edges = new ArrayList<Edge>();
+		}
+		this.edges.add(edge);
+	}
 }

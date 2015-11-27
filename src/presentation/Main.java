@@ -1,23 +1,19 @@
 package presentation;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import model.Edge;
 import model.Graph;
 import model.Node;
 
 public class Main {
-	
+
 	private static Graph graph;
-	private static int visits = 0;
 	
+
 	public static void main(String [] args) {
-		ArrayList<String> nodeAttributes2 = new ArrayList<String>();
-		nodeAttributes2.add("B");
-		nodeAttributes2.add("B-D");
-		nodeAttributes2.add("B-E");
-		insertNode(nodeAttributes2);
+		
+		graph = new Graph();
 		
 		ArrayList<String> nodeAttributes = new ArrayList<String>();
 		nodeAttributes.add("A");
@@ -25,77 +21,66 @@ public class Main {
 		nodeAttributes.add("A-C");
 		insertNode(nodeAttributes);
 		
-		executeDFS(graph, graph.getNodes().get(0));
+		ArrayList<String> nodeAttributes2 = new ArrayList<String>();
+		nodeAttributes2.add("B");
+		nodeAttributes2.add("B-D");
+		nodeAttributes2.add("B-E");
+		insertNode(nodeAttributes2);
+
+		System.out.println("============= START DEPH FIRST SEARCH =============");
+		graph.executeDFS(graph, graph.getNodes().get(0));
+		System.out.println("============= END DEPH FIRST SEARCH =============");
 	}
 	
-	private static void executeDFS(Graph graph, Node node) {
-		node.setVisited(true);
-		System.out.println(node.getName());
-		
-		for (Edge edge : node.getEdges()) {
-			
-			if (edge.getEnd() != null && edge.getEnd().isVisited() == false) {
-				edge.getEnd().setPrevisit(visits);
-				visits++;
-				executeDFS(graph, edge.getEnd());
-				edge.getEnd().setPostvisit(visits);
-			}
-		}
-		
-//		procedure DFS(G,v):
-//			2      label v as discovered
-//			3      for all edges from v to w in G.adjacentEdges(v) do
-//			4          if vertex w is not labeled as discovered then
-//			5              recursively call DFS(G,w)
-	}
-
+	
 	private static void insertNode(ArrayList<String> nodeAttributes) {
-		// CREATES THE GRAPH
-		if (graph == null) {
-			graph = new Graph();
-		}
-		
-		// CREATES A LIST OF EDGES FOR AN UNKNOWN NODE
-		List<Edge> edges = new ArrayList<Edge>();
-		
-		// CREATES A NEW NODE WITH NO EDGES
-		Node node = new Node(nodeAttributes.get(0).charAt(0), null);
-		
-		// CREATES AND LINK NODES WICH ARE LIKNED TO THE ACTUAL INSERTED IF NOT CREATED
-		for (int i = 1;  i < nodeAttributes.size() -1; i++) {
-			String attribute = nodeAttributes.get(i);
-			for (Character c : attribute.toCharArray()) {
-				if (!graph.containsName(c) && (!c.toString().equalsIgnoreCase(String.valueOf(node.getName())) && c != '-')) {
-					// CREATES A NEW NODE WITH THE PARAMETER GIVEN
-					Node newNode = new Node(c, null);
-					
-					// CREATES A NEW EDGE AND POINTS IT TO THE DESTINATION NODE
-					Edge newEdge = new Edge(newNode, node, 0);
-					if (newNode.getEdges() == null) {
-						newNode.setEdges(new ArrayList<Edge>());
-					}
-					newNode.getEdges().add(newEdge);
-					
-					// CREATES A NEW EDGE AND POINTS IT TO THE ORIGIN NODE
-					if (node.getEdges() == null) {
-						node.setEdges(new ArrayList<Edge>());
-					}
-					node.getEdges().add(new Edge(node, newNode, 0));
-					node.getEdges().add(newEdge);
-					
-					// INSERTS THE NEW NODE TO THE GRAPH
-					graph.addNode(newNode);
+		for (String commandAttribute : nodeAttributes) {
+			if (commandAttribute.length() == 1 && !graph.containsName(commandAttribute)) {
+				Node node = new Node(commandAttribute);
+				if (graph.addNode(node)) {
+					System.out.println("Node " + commandAttribute + " added successfully to the graph.");
+				} else {
+					System.err.println("Node " + commandAttribute + " already exists on the graph, node not added.");
 				}
+			} else if (commandAttribute.contains("-")) {
+
+				// CREATES NULL NODE REFERENCES
+				Node node1;
+				Node node2;
+
+				// TAKES THE NODE LETTERS FROM THE COMMANDS ON THE INPUT
+				String term1 = String.valueOf(commandAttribute.charAt(0));
+				String term2 = String.valueOf(commandAttribute.charAt(2));
+
+				// SEARCHES FOR EXISTING NODES WITH THAT NAME
+				node1 = graph.searchNodeByName(term1);
+				if (node1 == null) {
+					// CREATES A NEW NODE IF NO NODE IS FOUND
+					node1 = new Node(term1);
+					System.out.println("Node " + node1.getName() + " added successfully to the graph.");
+				}
+
+				// SEARCHES IF THE SECOND NODE EXISTS ON THE GRAPH
+				node2 = graph.searchNodeByName(term2);
+				if (node2 == null) {
+					// CREATES A NEW NODE IF NO NODE IS FOUND
+					node2 = new Node(term2);
+					System.out.println("Node " + node2.getName() + " added successfully to the graph.");
+				}
+
+				// CREATES TWO NEW EDGES LINKING THOSE NODES FORWARDLY AND BACKWARDLY WITH BOTH DIRECTIONS (0)
+				Edge edge1 = new Edge(node1, node2, 0);
+				Edge edge2 = new Edge(node2, node1, 0);
+
+				// ADDS THOSE EDGES TO THE CORRESPONDING NODES
+				node1.addEdge(edge1);
+				node2.addEdge(edge2);
+
+				// ADDS THE CREATED NODES TO THE GRAPH
+				graph.addNode(node1);
+				
+				graph.addNode(node2);
 			}
 		}
-		
-		// ADDS AN EDGE TO THE LIST OF EDGES
-		edges.add(new Edge(node, null, 0));
-		
-		// INSERTS THE LIST OF EDGES TO THE CREATED NODE
-		node.setEdges(edges);
-		
-		// INSERTS THE CURRENT NODE TO THE CREATED GRAPH
-		graph.addNode(node);
 	}
 }
