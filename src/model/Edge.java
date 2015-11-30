@@ -20,7 +20,7 @@ public class Edge {
 		this.start = start;
 	}
 
-	public Node getEnd() {
+	public Node getEndNode() {
 		return end;
 	}
 
