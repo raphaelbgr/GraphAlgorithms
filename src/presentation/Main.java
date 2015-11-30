@@ -13,23 +13,25 @@ public class Main {
 
 	public static void main(String [] args) {
 		
-		graph = new Graph();
+		// MOCK THE GRAPH
+		mockGraph();
 		
-		ArrayList<String> nodeAttributes = new ArrayList<String>();
-		nodeAttributes.add("A");
-		nodeAttributes.add("A-B");
-		nodeAttributes.add("A-C");
-		insertNode(nodeAttributes);
+		System.out.println("");
 		
-		ArrayList<String> nodeAttributes2 = new ArrayList<String>();
-		nodeAttributes2.add("B");
-		nodeAttributes2.add("B-D");
-		nodeAttributes2.add("B-E");
-		insertNode(nodeAttributes2);
-
-		System.out.println("============= START DEPH FIRST SEARCH =============");
+		System.out.println("============= START OF DEPH FIRST SEARCH =============");
 		graph.executeDFS(graph, graph.getNodes().get(0));
-		System.out.println("============= END DEPH FIRST SEARCH =============");
+		System.out.println("============= END OF DEPH FIRST SEARCH =============");
+		
+		System.out.println("");
+		
+		// RE-MOCKS THE GRAPH
+		mockGraph();
+		
+		System.out.println("");
+		
+		System.out.println("============= START OF BREADTH FIRST SEARCH=============");
+		graph.executeBFS(graph, graph.getNodes().get(0));
+		System.out.println("============= END OF BREADTH FIRST SEARCH =============");
 	}
 	
 	
@@ -82,5 +84,25 @@ public class Main {
 				graph.addNode(node2);
 			}
 		}
+	}
+	
+	private static void mockGraph() {
+		graph = new Graph();
+		
+		System.out.println("============= MOCKING GRAPH... =============");
+		
+		ArrayList<String> nodeAttributes = new ArrayList<String>();
+		nodeAttributes.add("A");
+		nodeAttributes.add("A-B");
+		nodeAttributes.add("A-C");
+		insertNode(nodeAttributes);
+		
+		ArrayList<String> nodeAttributes2 = new ArrayList<String>();
+		nodeAttributes2.add("B");
+		nodeAttributes2.add("B-D");
+		nodeAttributes2.add("B-E");
+		insertNode(nodeAttributes2);
+		
+		System.out.println("============= GRAPH MOCKED... =============");
 	}
 }
