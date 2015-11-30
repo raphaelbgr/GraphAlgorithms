@@ -68,7 +68,7 @@ public class Graph {
 			root.setDistance(0);
 			bfsQueue.offer(root);
 			if (!root.isVisited()) {
-				System.out.println("Enqueued Node " + root.getName() + " - distance: " +  root.getDistance());
+				System.out.println("Reached Node " + root.getName() + " - distance: " +  root.getDistance());
 				root.setVisited(true);
 			}
 		}
@@ -79,7 +79,7 @@ public class Graph {
 					n2.getEndNode().setDistance(current.getDistance() + 1);
 					n2.getEndNode().setParent(current);
 					bfsQueue.offer(n2.getEndNode());
-					System.out.println("Enqueued Node " + n2.getEndNode().getName() + " - distance: " +  n2.getEndNode().getDistance());
+					System.out.println("Reached Node " + n2.getEndNode().getName() + " - distance: " +  n2.getEndNode().getDistance());
 				}
 			}
 		}

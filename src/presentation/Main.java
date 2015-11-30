@@ -103,6 +103,19 @@ public class Main {
 		nodeAttributes2.add("B-E");
 		insertNode(nodeAttributes2);
 		
+		ArrayList<String> nodeAttributes3 = new ArrayList<String>();
+		nodeAttributes3.add("D-I");
+		nodeAttributes3.add("I-J");
+		nodeAttributes3.add("I-F");
+		insertNode(nodeAttributes3);
+		
+		ArrayList<String> nodeAttributes4 = new ArrayList<String>();
+		nodeAttributes4.add("E");
+		nodeAttributes4.add("E-F");
+		nodeAttributes4.add("E-G");
+		nodeAttributes4.add("E-H");
+		insertNode(nodeAttributes4);
+		
 		System.out.println("============= GRAPH MOCKED =============");
 	}
 }
