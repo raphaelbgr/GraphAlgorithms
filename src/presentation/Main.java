@@ -103,6 +103,6 @@ public class Main {
 		nodeAttributes2.add("B-E");
 		insertNode(nodeAttributes2);
 		
-		System.out.println("============= GRAPH MOCKED... =============");
+		System.out.println("============= GRAPH MOCKED =============");
 	}
 }

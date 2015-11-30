@@ -9,7 +9,6 @@ import java.util.Queue;
 public class Graph {
 	private List<Node> nodes = new ArrayList<Node>();
 	private int dfsVisits = 1;
-//	private int bfsVisits = 1;
 	private Queue<Node> bfsQueue = new PriorityQueue<Node>();
 
 	public boolean addNode(Node node) {
@@ -75,7 +74,6 @@ public class Graph {
 		}
 		while (!bfsQueue.isEmpty()) {
 			Node current = bfsQueue.poll();
-//			System.out.println("Dequeued Node " + current.getName() + " - distance: " +  current.getDistance());
 			for (Edge n2 : current.getEdges()) {
 				if (n2.getEndNode().getDistance() == Integer.MAX_VALUE) {
 					n2.getEndNode().setDistance(current.getDistance() + 1);
@@ -106,64 +104,6 @@ public class Graph {
 		//			18                 n.distance = current.distance + 1
 		//			19                 n.parent = current
 		//			20                 Q.enqueue(n)
-
-		//		node.setVisited(true);
-		//		node.setPrevisit(bfsVisits);
-		//		bfsQueue.offer(node);
-		//		bfsVisits++;
-		//		System.out.println("Enqueued Node " + node.getName() + " - previsit: " +  node.getPrevisit());
-		//		while(!bfsQueue.isEmpty()) {
-		//			for (Edge edge : node.getEdges()) {
-		//				if (edge.getEndNode().isVisited() == false) {
-		////					executeBFS(graph, edge.getEndNode());
-		//					edge.getEndNode().setVisited(true);
-		//					edge.getEndNode().setPrevisit(bfsVisits);
-		//					bfsQueue.add(edge.getEndNode()); 		// insira w em F
-		//				} else {
-		////					executeBFS(graph, edge.getEndNode());
-		//				}
-		//			}
-		//			Node removedNode = bfsQueue.poll();
-		//			if (removedNode != null)
-		//				System.out.println("Removed Node " + removedNode.getName() + " - previsit: " +  removedNode.getPrevisit());
-		//		}
-
-		//		BuscaEmLargura
-		//		   escolha uma raiz s de G
-		//		   marque s
-		//		   insira s em F
-		//		   enquanto F nao esta vazia faca
-		//		      seja v o primeiro vertice de F
-		//		      para cada w pertence a listaDeAdjacencia de v faca
-		//		         se w nao esta marcado entao
-		//		            visite aresta entre v e w
-		//		            marque w
-		//		            insira w em F
-		//		         senao se w pertence a F entao
-		//		            visite aresta entre v e w
-		//		         fim se
-		//		      fim para
-		//		      retira v de F
-		//		   fim enquanto
 	}
-
-//	private boolean searchBfsQueueByName(String name) {
-//		for (Node node : bfsQueue) {
-//			if (node.getName().equalsIgnoreCase(name)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//
-//	private boolean removeFromBfsQueueByName(String name) {
-//		for (Node node : bfsQueue) {
-//			if (node.getName().equalsIgnoreCase(name)) {
-//				bfsQueue.remove(node);
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 
 }
