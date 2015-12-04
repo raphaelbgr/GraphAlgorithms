@@ -1,121 +1,40 @@
 package presentation;
 
-import java.util.ArrayList;
-
-import model.Edge;
+import algorithms.Algorithm;
+import algorithms.implementation.BreadthFirstSearch;
+import algorithms.implementation.DephFirstSearch;
+import algorithms.implementation.Dijkstra;
+import mockers.GraphMocker;
 import model.Graph;
-import model.Node;
 
 public class Main {
 
-	private static Graph graph;
-	
-
 	public static void main(String [] args) {
 		
+		GraphMocker mocker = new GraphMocker();
+		Graph graph = null;
+		Algorithm algorithm = null;
+		
 		// MOCK THE GRAPH
-		mockGraph();
+		graph = mocker.createMockedGraph();
 		
-		System.out.println("");
-		
-		System.out.println("============= START OF DEPH FIRST SEARCH =============");
-		graph.executeDFS(graph, graph.getNodes().get(0));
-		System.out.println("============= END OF DEPH FIRST SEARCH =============");
-		
-		System.out.println("");
+		algorithm = new DephFirstSearch();
+		algorithm.execute(graph, graph.getNodes().get(0));
+		algorithm.showResults();
 		
 		// RE-MOCKS THE GRAPH
-		mockGraph();
+		graph = mocker.createMockedGraph();
 		
-		System.out.println("");
+		algorithm = new BreadthFirstSearch();
+		algorithm.execute(graph, graph.getNodes().get(0));
+		algorithm.showResults();
 		
-		System.out.println("============= START OF BREADTH FIRST SEARCH=============");
-		graph.executeBFS(graph, graph.getNodes().get(0));
-		System.out.println("============= END OF BREADTH FIRST SEARCH =============");
+		// RE-MOCKS THE GRAPH
+		graph = mocker.createMockedGraph();
+		
+		algorithm = new Dijkstra();
+		algorithm.execute(graph, graph.getNodes().get(0));
+		algorithm.showResults();
 	}
 	
-	
-	private static void insertNode(ArrayList<String> nodeAttributes) {
-		for (String commandAttribute : nodeAttributes) {
-			if (commandAttribute.length() == 1 && !graph.containsName(commandAttribute)) {
-				Node node = new Node(commandAttribute);
-				if (graph.addNode(node)) {
-					System.out.println("Node " + commandAttribute + " added successfully to the graph.");
-				} else {
-					System.err.println("Node " + commandAttribute + " already exists on the graph, node not added.");
-				}
-			} else if (commandAttribute.contains("-")) {
-
-				// CREATES NULL NODE REFERENCES
-				Node node1;
-				Node node2;
-
-				// TAKES THE NODE LETTERS FROM THE COMMANDS ON THE INPUT
-				String term1 = String.valueOf(commandAttribute.charAt(0));
-				String term2 = String.valueOf(commandAttribute.charAt(2));
-
-				// SEARCHES FOR EXISTING NODES WITH THAT NAME
-				node1 = graph.searchNodeByName(term1);
-				if (node1 == null) {
-					// CREATES A NEW NODE IF NO NODE IS FOUND
-					node1 = new Node(term1);
-					System.out.println("Node " + node1.getName() + " added successfully to the graph.");
-				}
-
-				// SEARCHES IF THE SECOND NODE EXISTS ON THE GRAPH
-				node2 = graph.searchNodeByName(term2);
-				if (node2 == null) {
-					// CREATES A NEW NODE IF NO NODE IS FOUND
-					node2 = new Node(term2);
-					System.out.println("Node " + node2.getName() + " added successfully to the graph.");
-				}
-
-				// CREATES TWO NEW EDGES LINKING THOSE NODES FORWARDLY AND BACKWARDLY WITH BOTH DIRECTIONS (0)
-				Edge edge1 = new Edge(node1, node2, 0);
-				Edge edge2 = new Edge(node2, node1, 0);
-
-				// ADDS THOSE EDGES TO THE CORRESPONDING NODES
-				node1.addEdge(edge1);
-				node2.addEdge(edge2);
-
-				// ADDS THE CREATED NODES TO THE GRAPH
-				graph.addNode(node1);
-				
-				graph.addNode(node2);
-			}
-		}
-	}
-	
-	private static void mockGraph() {
-		graph = new Graph();
-		
-		System.out.println("============= MOCKING GRAPH... =============");
-		
-		ArrayList<String> nodeAttributes = new ArrayList<String>();
-		nodeAttributes.add("A");
-		nodeAttributes.add("A-B");
-		nodeAttributes.add("A-C");
-		insertNode(nodeAttributes);
-		
-		ArrayList<String> nodeAttributes2 = new ArrayList<String>();
-		nodeAttributes2.add("B");
-		nodeAttributes2.add("B-D");
-		nodeAttributes2.add("B-E");
-		insertNode(nodeAttributes2);
-		
-		ArrayList<String> nodeAttributes3 = new ArrayList<String>();
-		nodeAttributes3.add("D-I");
-		nodeAttributes3.add("I-J");
-		nodeAttributes3.add("I-F");
-		insertNode(nodeAttributes3);
-		
-		ArrayList<String> nodeAttributes4 = new ArrayList<String>();
-		nodeAttributes4.add("E");
-		nodeAttributes4.add("E-F");
-		nodeAttributes4.add("E-G");
-		nodeAttributes4.add("E-H");
-		insertNode(nodeAttributes4);
-		
-		System.out.println("============= GRAPH MOCKED =============");
-	}
 }

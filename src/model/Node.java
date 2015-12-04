@@ -8,9 +8,9 @@ public class Node implements Comparable<Node> {
 	private boolean visited;
 	private int previsit;
 	private int postvisit;
-	private String name;
+	private String name = "";
 	private List<Edge> edges;
-	private int distance;
+	private int distance = Integer.MAX_VALUE;
 	private Node parent;
 	
 	public List<Edge> getEdges() {
