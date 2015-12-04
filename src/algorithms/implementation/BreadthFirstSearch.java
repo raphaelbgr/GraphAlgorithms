@@ -24,7 +24,7 @@ public class BreadthFirstSearch implements Algorithm {
 				root.setDistance(0);
 				bfsQueue.offer(root);
 				if (!root.isVisited()) {
-					log("Reached Node " + root.getName() + " - distance: " +  root.getDistance());
+					log("Starting Node " + root.getName() + " - distance: " +  root.getDistance());
 					root.setVisited(true);
 				}
 			}
@@ -35,7 +35,8 @@ public class BreadthFirstSearch implements Algorithm {
 						n2.getEndNode().setDistance(current.getDistance() + 1);
 						n2.getEndNode().setParent(current);
 						bfsQueue.offer(n2.getEndNode());
-						log("Reached Node " + n2.getEndNode().getName() + " - distance: " +  n2.getEndNode().getDistance());
+						log("Reached Node " + n2.getStart().getName() + "->" + n2.getEndNode().getName() + " - distance: " +  n2.getEndNode().getDistance());
+//						log("Reached Node " + n2.getEndNode().getName() + " - distance: " +  n2.getEndNode().getDistance());
 					}
 				}
 			}

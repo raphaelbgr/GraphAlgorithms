@@ -18,9 +18,10 @@ public class DephFirstSearch  implements Algorithm {
 		node.setVisited(true);
 		node.setPrevisit(dfsVisits);
 		dfsVisits++;
-		log("Reached Node " + node.getName() + " - previsit: " +  node.getPrevisit());
+//		log("Reached Node " + node.getName() + " - previsit: " +  node.getPrevisit());
 		for (Edge edge : node.getEdges()) {
 			if (edge.getEndNode().isVisited() == false) {
+				log("Reached Node " + edge.getStart().getName() + "->" + edge.getEndNode().getName() + " - previsit: " +  node.getPrevisit());
 				edge.getEndNode().setPrevisit(dfsVisits);
 				execute(graph, edge.getEndNode());
 				edge.getEndNode().setPostvisit(dfsVisits);
