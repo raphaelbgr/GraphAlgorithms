@@ -39,7 +39,7 @@ public class Dijkstra  implements Algorithm {
 	}
 	
 	public Dijkstra() {
-		log("============= START OF DIJKSTRA MINIMUM PATH SEARCH=============");
+		log("============= START OF DIJKSTRA MINIMUM PATH SEARCH =============");
 	}
 	
 	@Override
