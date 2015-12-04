@@ -11,6 +11,7 @@ import model.Node;
 public class Dijkstra  implements Algorithm {
 
 	private List<Node> dijkstraList = new ArrayList<Node>();
+	private ArrayList<String> output = new ArrayList<String>();
 
 	@Override
 	public void execute(Graph graph, Node source) {
@@ -25,7 +26,7 @@ public class Dijkstra  implements Algorithm {
 		while (!dijkstraList.isEmpty()) {
 			Node u = graph.getClosestNode(graph, dijkstraList);
 			dijkstraList.remove(u);
-			System.out.println("Node " + u.getName() + " hops from " + source.getName() + ": " + u.getDistance());
+			log("Node " + u.getName() + " hops from " + source.getName() + ": " + u.getDistance());
 			for (Edge edge : u.getEdges()) {
 				Node v = edge.getEndNode();
 				int alt = u.getDistance() + edge.getWeight();
@@ -38,12 +39,18 @@ public class Dijkstra  implements Algorithm {
 	}
 	
 	public Dijkstra() {
-		System.out.println("============= START OF DIJKSTRA MINUMUM PATH SEARCH=============");
+		log("============= START OF DIJKSTRA MINIMUM PATH SEARCH=============");
 	}
 	
 	@Override
-	public void showResults() {
-		System.out.println("============= END OF DIJKSTRA MINUMUM PATH SEARCH =============");
+	public ArrayList<String> showResults() {
+		log("============= END OF DIJKSTRA MINIMUM PATH SEARCH =============");
+		return output;
+	}
+
+	private void log(String string) {
+		output.add(string);
+		System.out.println(string);
 	}
 
 

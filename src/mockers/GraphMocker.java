@@ -47,12 +47,15 @@ public class GraphMocker {
 		System.out.println("");
 	}
 
-	private void insertNode(Graph graph, ArrayList<String> nodeAttributes) {
+	public ArrayList<String> insertNode(Graph graph, ArrayList<String> nodeAttributes) {
+		ArrayList<String> output = new ArrayList<String>();
 		for (String commandAttribute : nodeAttributes) {
 			if (commandAttribute.length() == 1 && !graph.containsName(commandAttribute)) {
 				Node node = new Node(commandAttribute);
 				if (graph.addNode(node)) {
-					System.out.println("Node " + commandAttribute + " added successfully to the graph.");
+					String out = "Node " + commandAttribute + " added successfully to the graph.";
+					output.add(out);
+					System.out.println(out);
 				} else {
 					System.err.println("Node " + commandAttribute + " already exists on the graph, node not added.");
 				}
@@ -70,7 +73,9 @@ public class GraphMocker {
 				if (node1 == null) {
 					// CREATES A NEW NODE IF NO NODE IS FOUND
 					node1 = new Node(term1);
-					System.out.println("Node " + node1.getName() + " added successfully to the graph.");
+					String out = "Node " + node1.getName() + " added successfully to the graph.";
+					output.add(out);
+					System.out.println(out);
 				}
 
 				// SEARCHES IF THE SECOND NODE EXISTS ON THE GRAPH
@@ -78,7 +83,9 @@ public class GraphMocker {
 				if (node2 == null) {
 					// CREATES A NEW NODE IF NO NODE IS FOUND
 					node2 = new Node(term2);
-					System.out.println("Node " + node2.getName() + " added successfully to the graph.");
+					String out = "Node " + node2.getName() + " added successfully to the graph.";
+					output.add(out);
+					System.out.println(out);
 				}
 
 				// DETECTS THE WEIGHT OF THE EDGE IF ENTERED
@@ -100,5 +107,6 @@ public class GraphMocker {
 				graph.addNode(node2);
 			}
 		}
+		return output;
 	}
 }

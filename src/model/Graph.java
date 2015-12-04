@@ -54,4 +54,10 @@ public class Graph {
 		}
 		return n;
 	}
+	
+	public Node getFirstNode() {
+		if (nodes != null && !nodes.isEmpty()) {
+			return nodes.get(0);
+		} else return null;
+	}
 }

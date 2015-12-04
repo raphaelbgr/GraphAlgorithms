@@ -1,5 +1,6 @@
 package algorithms.implementation;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -11,6 +12,7 @@ import model.Node;
 public class BreadthFirstSearch implements Algorithm {
 	
 	private Queue<Node> bfsQueue = new PriorityQueue<Node>();
+	private ArrayList<String> output = new ArrayList<String>();
 
 	@Override
 	public void execute(Graph graph, Node root) {
@@ -22,7 +24,7 @@ public class BreadthFirstSearch implements Algorithm {
 				root.setDistance(0);
 				bfsQueue.offer(root);
 				if (!root.isVisited()) {
-					System.out.println("Reached Node " + root.getName() + " - distance: " +  root.getDistance());
+					log("Reached Node " + root.getName() + " - distance: " +  root.getDistance());
 					root.setVisited(true);
 				}
 			}
@@ -33,7 +35,7 @@ public class BreadthFirstSearch implements Algorithm {
 						n2.getEndNode().setDistance(current.getDistance() + 1);
 						n2.getEndNode().setParent(current);
 						bfsQueue.offer(n2.getEndNode());
-						System.out.println("Reached Node " + n2.getEndNode().getName() + " - distance: " +  n2.getEndNode().getDistance());
+						log("Reached Node " + n2.getEndNode().getName() + " - distance: " +  n2.getEndNode().getDistance());
 					}
 				}
 			}
@@ -61,12 +63,17 @@ public class BreadthFirstSearch implements Algorithm {
 		}
 	
 	public BreadthFirstSearch() {
-		System.out.println("============= START OF BREADTH FIRST SEARCH=============");
+		log("============= START OF BREADTH FIRST SEARCH=============");
 	}
 
 	@Override
-	public void showResults() {
-		System.out.println("============= END OF BREADTH FIRST SEARCH =============");
+	public ArrayList<String> showResults() {
+		log("============= END OF BREADTH FIRST SEARCH =============");
+		return output;
 	}
-		
+	
+	private void log(String string) {
+		output.add(string);
+		System.out.println(string);
+	}
 }

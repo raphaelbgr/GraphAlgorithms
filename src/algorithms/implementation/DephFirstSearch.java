@@ -1,5 +1,7 @@
 package algorithms.implementation;
 
+import java.util.ArrayList;
+
 import algorithms.Algorithm;
 import model.Edge;
 import model.Graph;
@@ -8,6 +10,7 @@ import model.Node;
 public class DephFirstSearch  implements Algorithm {
 
 	private int dfsVisits = 1;
+	private ArrayList<String> output = new ArrayList<String>();
 
 	@Override
 	public void execute(Graph graph, Node node) {
@@ -15,7 +18,7 @@ public class DephFirstSearch  implements Algorithm {
 		node.setVisited(true);
 		node.setPrevisit(dfsVisits);
 		dfsVisits++;
-		System.out.println("Reached Node " + node.getName() + " - previsit: " +  node.getPrevisit());
+		log("Reached Node " + node.getName() + " - previsit: " +  node.getPrevisit());
 		for (Edge edge : node.getEdges()) {
 			if (edge.getEndNode().isVisited() == false) {
 				edge.getEndNode().setPrevisit(dfsVisits);
@@ -30,13 +33,19 @@ public class DephFirstSearch  implements Algorithm {
 		//			5              recursively call DFS(G,w)
 
 	}
-	
+
 	public DephFirstSearch() {
-		System.out.println("============= START OF DEPH FIRST SEARCH =============");
+		log("============= START OF DEPH FIRST SEARCH =============");
 	}
 
 	@Override
-	public void showResults() {
-		System.out.println("============= END OF DEPH FIRST SEARCH =============");
+	public ArrayList<String> showResults() {
+		log("============= END OF DEPH FIRST SEARCH =============");
+		return output;
+	}
+
+	private void log(String string) {
+		output.add(string);
+		System.out.println(string);
 	}
 }
